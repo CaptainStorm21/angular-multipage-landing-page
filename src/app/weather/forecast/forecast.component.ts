@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ForecastService } from '../forecast.service';
+
 
 @Component({
   selector: 'app-forecast',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForecastComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    ForecastService: ForecastService
+  ) {
+    ForecastService.getCurrentLocation()
+      .subscribe((coords) => {
+        console.log(coords);
+    })
+  }
 
   ngOnInit(): void {
   }
