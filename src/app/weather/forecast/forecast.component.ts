@@ -9,16 +9,12 @@ import { ForecastService } from '../forecast.service';
 })
 export class ForecastComponent implements OnInit {
 
-  constructor(
-    ForecastService: ForecastService
-  ) {
-    ForecastService.getCurrentLocation()
-      .subscribe((coords) => {
-        console.log(coords);
+  constructor(forecastService: ForecastService) {
+    forecastService.getForecast().subscribe(weatherResponse => {
+      console.log(weatherResponse)
     })
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
 }
