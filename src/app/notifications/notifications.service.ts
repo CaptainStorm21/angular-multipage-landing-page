@@ -41,7 +41,7 @@ export class NotificationsService {
 
     setTimeout(() => {
       this.clearMessage(id);
-    }, 5000);
+    }, 50000);
   }
 
   addError(message: string) {

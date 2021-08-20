@@ -57,7 +57,7 @@ export class ForecastService {
 
   getCurrentLocation() {
     return new Observable<any>(observer => {
-      console.log('trying to get a new location');
+      // console.log('trying to get a new location');
       window.navigator.geolocation.getCurrentPosition(
         position => {
           observer.next(position.coords);
@@ -66,7 +66,7 @@ export class ForecastService {
         err => observer.error(err)
       );
     }).pipe(
-      retry(1),
+      retry(2),
       // not optimal solution
       // tap(() => {
       //   this.notificationService.addSuccess('Found your location!');
