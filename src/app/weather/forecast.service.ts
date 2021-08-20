@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, pluck, mergeMap, filter, toArray, share, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { map, switchMap, pluck, mergeMap, filter, toArray, share, tap, catchError } from 'rxjs/operators';
 import { NotificationsService } from '../notifications/notifications.service';
+
+//catchError is a transofrmational operator grabs pre-existent value and transforms it
+//throwError returns a pre-configed observable
 
 
 interface OpenWeatherResponse {
@@ -67,6 +70,18 @@ export class ForecastService {
       // }, () => {
       //   this.notificationService.addError('Error')
       // } )
+      tap(() => {
+        this.notificationService.addSuccess('Found your location!');
+      }
+      ),
+      catchError((err) => {
+          // step 1 - handle the error
+        this.notificationService.addError('Location not found');
+        // step 2 - return a new observable
+        // why return a new observable
+        // we can emit a new default location
+        return throwError(err);
+      })
     );
   }
 }
