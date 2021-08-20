@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { map, switchMap, pluck, mergeMap, filter, toArray, share, tap, catchError } from 'rxjs/operators';
+import { map, switchMap, pluck, mergeMap, filter, toArray, share, tap, catchError, retry } from 'rxjs/operators';
 import { NotificationsService } from '../notifications/notifications.service';
 
 //catchError is a transofrmational operator grabs pre-existent value and transforms it
 //throwError returns a pre-configed observable
 
+// retry allowes you to retry the logic that is being executed
 
 interface OpenWeatherResponse {
   list: {
@@ -56,6 +57,7 @@ export class ForecastService {
 
   getCurrentLocation() {
     return new Observable<any>(observer => {
+      console.log('trying to get a new location');
       window.navigator.geolocation.getCurrentPosition(
         position => {
           observer.next(position.coords);
@@ -64,6 +66,7 @@ export class ForecastService {
         err => observer.error(err)
       );
     }).pipe(
+      retry(1),
       // not optimal solution
       // tap(() => {
       //   this.notificationService.addSuccess('Found your location!');
