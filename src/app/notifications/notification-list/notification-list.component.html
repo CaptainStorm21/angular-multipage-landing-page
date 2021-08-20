@@ -1,1 +1,6 @@
-<p>notification-list works!</p>
+<div *ngFor='let message of messages | async'>
+  {{ message.text}}
+</div>
+
+
+
