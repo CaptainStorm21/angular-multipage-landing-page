@@ -1,3 +1,4 @@
 <div *ngFor = "let forecast of forecastData">
 {{forecast.temp | number: '1.0-0'}}
+{{forecast.dateString | date: 'E'}}
 </div>
