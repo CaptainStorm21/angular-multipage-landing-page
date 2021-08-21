@@ -6,7 +6,18 @@ import {
   switchMap
 } from 'rxjs/operators';
 
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
+
+interface NewsApiResponse {
+  totalResults: number;
+  articles: {
+    title: string;
+    url: string;
+  }[];
+}
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +33,9 @@ export class NewsApiService {
   pagesOutput: Observable<any>;
   numberofPages: Observable<number>;
 
-  constructor() {
+  constructor(
+    private http: HttpClient
+  ) {
     this.pagesInput = new Subject();
     this.pagesOutput = this.pagesInput.pipe(
       map((page) => {
@@ -31,6 +44,17 @@ export class NewsApiService {
           .set('country', this.country)
           .set('pageSize', String(this.pageSize))
           .set('page', String(page))
+      }),
+      switchMap((params) => {
+        // <NewsApiResponse > tells TS specifically about the structure
+        // of the data in the response that we get back
+        // tnad ts further knowns that is going on with this switch map operator in general
+        // the final mouse over will tell me about th etype of data that is flowing hrough this thing
+
+        return this.http.get <NewsApiResponse >(
+          this.url,
+          {params}
+        )
       })
     )
   }
