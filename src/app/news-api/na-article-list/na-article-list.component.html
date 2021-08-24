@@ -1,1 +1,12 @@
-<p>na-article-list works!</p>
+<div class="lg-6">
+  <h3>World news</h3>
+  <div class="list-group">
+    <a
+        *ngFor = "let article of articles"
+        [href] ="article.url"
+        class = " list-group-item list-group-item-action"
+        target = "_blank">
+        {{ article.title }}
+  </a>
+  </div>
+</div>
