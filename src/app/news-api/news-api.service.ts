@@ -9,12 +9,14 @@ import {
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { AppPage } from '../../../e2e/src/app.po';
 
+interface Article {
+  title: string;
+  url: string;
+}
+
 interface NewsApiResponse {
   totalResults: number;
-  articles: {
-    title: string;
-    url: string;
-  }[];
+  articles: Article[];
 }
 
 @Injectable({
@@ -28,7 +30,7 @@ export class NewsApiService {
   private country = 'fr';
 
   private pagesInput: Subject<number>;
-          pagesOutput: Observable<any>;
+          pagesOutput: Observable<Article[]>;
           numberofPages: Subject<number>;
 
   constructor(
