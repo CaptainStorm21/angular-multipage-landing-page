@@ -9,7 +9,7 @@ import {
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { AppPage } from '../../../e2e/src/app.po';
 
-interface Article {
+export interface Article {
   title: string;
   url: string;
 }
