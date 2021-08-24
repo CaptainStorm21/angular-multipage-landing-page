@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewsApiService } from '../news-api.service';
 // import interface
 import { Article } from '../news-api.service';
+import { TrimOutletNamePipe } from '../trim-outlet-name.pipe';
 
 @Component({
   selector: 'app-na-article-list',

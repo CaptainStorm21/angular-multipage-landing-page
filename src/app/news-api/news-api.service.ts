@@ -12,6 +12,9 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 export interface Article {
   title: string;
   url: string;
+  source: {
+    name: string;
+  }
 }
 
 interface NewsApiResponse {
@@ -27,7 +30,7 @@ export class NewsApiService {
   private url = 'https://newsapi.org/v2/top-headlines';
   private pageSize = 10;
   private apiKey = '9fb2279398d447b4b4e0e5b0f9282daa';
-  private country = 'fr';
+  private country = 'us';
 
   private pagesInput: Subject<number>;
           pagesOutput: Observable<Article[]>;
