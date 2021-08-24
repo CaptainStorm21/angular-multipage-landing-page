@@ -7,7 +7,7 @@ import {
   pluck
 } from 'rxjs/operators';
 import { HttpParams, HttpClient } from '@angular/common/http';
-import { AppPage } from '../../../e2e/src/app.po';
+
 
 export interface Article {
   title: string;
@@ -31,12 +31,13 @@ export class NewsApiService {
 
   private pagesInput: Subject<number>;
           pagesOutput: Observable<Article[]>;
-          numberofPages: Subject<number>;
+          numberOfPages: Subject<number>;
 
   constructor(
     private http: HttpClient
   ) {
 
+    this.numberOfPages = new Subject();
     this.pagesInput = new Subject();
     this.pagesOutput = this.pagesInput.pipe(
       map((page) => {
@@ -44,7 +45,7 @@ export class NewsApiService {
           .set('apiKey', this.apiKey)
           .set('country', this.country)
           .set('pageSize', String(this.pageSize))
-          .set('page', String(page))
+          .set('page', String(page));
       }),
       switchMap(params => {
         // <NewsApiResponse > tells TS specifically about the structure
@@ -56,14 +57,13 @@ export class NewsApiService {
       }),
       tap(response => {
         const totalPages = Math.ceil(response.totalResults / this.pageSize);
-        this.numberofPages.next(totalPages);
+        this.numberOfPages.next(totalPages);
       }),
-      pluck('article')
+      pluck('articles')
     );
   }
-
-  getPages(page: number) {
-    this.pagesInput.next(page)
+  getPage(page: number): void {
+    this.pagesInput.next(page);
   }
 
 }

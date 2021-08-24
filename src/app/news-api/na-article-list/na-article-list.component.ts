@@ -20,10 +20,14 @@ export class NaArticleListComponent implements OnInit {
     // then access that data directly inside of our template instead of using async pipe
     this.newsApiService.pagesOutput.subscribe((articles) => {
       this.articles = articles;
+      console.log(this.articles);
     });
 
-  }
+    this.newsApiService.getPage(1);
 
+
+
+    }
   ngOnInit(): void {
   }
 
