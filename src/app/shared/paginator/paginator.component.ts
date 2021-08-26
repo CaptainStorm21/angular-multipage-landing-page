@@ -8,8 +8,21 @@ import { Component, OnInit } from '@angular/core';
 export class PaginatorComponent implements OnInit {
 
   numberOfPages = 5;
-  
-  constructor() { }
+  currentPage = 1;
+
+  pageOptions: number[];
+
+
+
+  constructor() {
+    this.pageOptions = [
+      this.currentPage - 2,
+      this.currentPage - 1,
+      this.currentPage,
+      this.currentPage + 1,
+      this.currentPage + 2
+    ].filter(pageNumber => pageNumber >= 1 && pageNumber <= this.numberOfPages);
+  }
 
   ngOnInit(): void {
   }
