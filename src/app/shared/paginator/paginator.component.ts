@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaginatorComponent implements OnInit {
 
+  numberOfPages = 5;
+  
   constructor() { }
 
   ngOnInit(): void {
