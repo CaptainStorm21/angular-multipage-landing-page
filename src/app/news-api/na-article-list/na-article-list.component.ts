@@ -11,6 +11,7 @@ import { TrimOutletNamePipe } from '../trim-outlet-name.pipe';
 })
 export class NaArticleListComponent implements OnInit {
 
+
   articles: Article[];
   constructor(
     // dependency injection
